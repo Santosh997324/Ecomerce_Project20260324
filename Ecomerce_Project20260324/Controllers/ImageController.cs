@@ -1,0 +1,116 @@
+﻿using Ecomerce_Project20260324.Data;
+using Ecomerce_Project20260324.Models.Product;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
+namespace Ecomerce_Project20260324.Controllers
+{
+
+    [Route("api/[controller]")]
+    [ApiController]
+    public class ImageController : ControllerBase
+    {
+        
+        private readonly Microsoft.AspNetCore.Hosting.IHostingEnvironment _hostingEnvironment;
+        private readonly ApplicationDbContext _db;
+        public ImageController(Microsoft.AspNetCore.Hosting.IHostingEnvironment hostingEnvironment, ApplicationDbContext db)
+        {
+            _db = db;
+            _hostingEnvironment=hostingEnvironment;
+        }
+
+        
+        [HttpPost]
+        [Route("Upload/{productBaseId}")]
+        public async Task<IActionResult> UploadImage([FromRoute] int productBaseId)
+        {
+            try
+            {
+                var files= HttpContext.Request.Form.Files;
+                if(files != null && files.Count > 0)
+                {
+                    foreach (var file in files)
+                    {
+                        FileInfo fi = new FileInfo(file.FileName);
+
+                        var date = DateTime.UtcNow.ToShortTimeString().ToString();
+
+                        var dateNormalized = date.Replace("/", "-");
+                        var newFilesName ="Image_" + dateNormalized + "_" + DateTime.UtcNow.TimeOfDay.Microseconds + fi.Extension;
+
+                        var folderPath = Path.Combine("",_hostingEnvironment.ContentRootPath + "\\" + "wwwroot\\" +"Images\\"+"ProductId"+ productBaseId);
+
+                        var path = Path.Combine("", _hostingEnvironment.ContentRootPath + "\\" + "wwwroot\\" + "Images\\" + "ProductId_" + productBaseId +"\\" + newFilesName);
+
+                        if (!Directory.Exists(folderPath))
+                        {
+                            Directory.CreateDirectory(folderPath);
+                        }
+
+                        using (var stream = new FileStream(path, FileMode.Create))
+                        {
+
+                            file.CopyTo(stream);
+                        }
+
+
+                        string protocol = HttpContext.Request.IsHttps ? "https" : "http";
+                        var domain = HttpContext.Request.Host.ToString();
+                        var domainPath = protocol + "://" + domain;
+                        var staticPath = Path.Combine(domainPath, "Images\\" + "ProductId_" + productBaseId
+                            + "\\" + newFilesName);
+
+                        ImageBase imageBase = new ImageBase();
+                        imageBase.ImagePath = path;
+                        imageBase.AddedOn = DateTime.UtcNow;
+                        imageBase.BaseProductId = productBaseId;
+                        imageBase.staticPath = staticPath;
+
+                        await _db.ImageBases.AddAsync(imageBase);
+                        await _db.SaveChangesAsync();
+
+
+                    }
+
+                    return Ok("Images Uploaded");
+                }
+                else
+                {
+                    return BadRequest("Please select files to upload");
+                }
+
+            }
+            catch (Exception ex) {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
+
+        [HttpDelete]
+        [Route("DeleteImage/{baseImageId}")]
+        public async Task<IActionResult> DeleteImage([FromRoute] int baseImageId)
+        {
+            var existingImage = await _db.ImageBases
+                .FirstOrDefaultAsync(ib => ib.Id == baseImageId);
+
+            if (existingImage == null)
+            {
+                return NotFound("No Image Found With Given Id");
+            }
+
+            if (System.IO.File.Exists(existingImage.ImagePath))
+            {
+                System.IO.File.Delete(existingImage.ImagePath);
+            }
+
+            _db.ImageBases.Remove(existingImage);
+            await _db.SaveChangesAsync();
+
+            return Ok("Image Removed Successfully");
+        }
+
+
+    }
+}

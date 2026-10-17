@@ -1,0 +1,28 @@
+﻿@model AdminPanel.Models.MasterModel
+
+
+<div class="modal-body">
+
+    <form asp-action="UpdateBaseProduct" method="post">
+
+        <div class="mb-3">
+            <label>Price</label>
+            <input asp-for="BaseProductVM_Obj.Price" class="form-control" />
+        </div>
+        <input type="hidden" asp-for="BaseProductVM_Obj.Id" />
+
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+            <button type="submit" class="btn btn-success">
+                Update
+            </button>
+        </div>
+
+    </form>
+</div>
+
+
+
+

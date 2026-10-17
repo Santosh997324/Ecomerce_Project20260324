@@ -1,0 +1,177 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<!-- ========== App Menu ========== -->
+<div class="app-menu navbar-menu">
+    <!-- LOGO -->
+    <div class="navbar-brand-box">
+        <a href="index.html" class="logo logo-dark">
+            <span class="logo-sm">
+                <img src="~/assets/images/logo-sm.png" alt="" height="22">
+            </span>
+            <span class="logo-lg">
+                <img src="~/assets/images/logo-dark.png" alt="" height="22">
+            </span>
+        </a>
+        <a asp-controller="Home" asp-action="Index" class="logo logo-light">
+            <span class="logo-sm">
+                <img src="~/assets/images/logo-sm.png" alt="" height="22">
+            </span>
+            <span class="logo-lg">
+                <img src="~/assets/images/logo-light.png" alt="" height="22">
+            </span>
+        </a>
+        <button type="button" class="btn btn-sm p-0 fs-3xl header-item float-end btn-vertical-sm-hover shadow-none" id="vertical-hover">
+            <i class="ri-record-circle-line"></i>
+        </button>
+    </div>
+
+    <div id="scrollbar">
+        <div class="container-fluid">
+
+            <div id="two-column-menu">
+            </div>
+            <ul class="navbar-nav" id="navbar-nav">
+
+                <li class="menu-title"><span data-key="t-menu">Menu</span></li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link collapsed" asp-controller="Home" asp-action="Index" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
+                        <i class="ti ti-brand-google-home"></i> <span data-key="t-dashboards">Dashboards</span>
+                    </a>
+                </li>
+
+
+                <li class="menu-title"><i class="ti ti-dots"></i> <span data-key="t-apps">Master</span></li>
+
+                <li class="nav-item">
+                    <a asp-action="Banner" asp-controller="Home" class="nav-link menu-link"> <i class="ti ti-calendar"></i> <span data-key="t-calendar">Banner</span> </a>
+                </li>
+
+                <li class="nav-item">
+                    <a asp-action="Status" asp-controller="Home" class="nav-link menu-link"> <i class="ti ti-messages"></i> <span data-key="t-chat">Status </span> </a>
+                </li>
+
+                <li class="nav-item">
+                    <a asp-action="CustomerFeedback" asp-controller="Home" class="nav-link menu-link"> <i class="ti ti-messages"></i> <span data-key="t-chat">Customer Feedback</span> </a>
+                </li>
+
+                <li class="nav-item">
+                    <a asp-action="ProductSize" asp-controller="Product" class="nav-link menu-link"> <i class="ti ti-mail"></i> <span data-key="t-email">Product Size</span> </a>
+                </li>
+
+                <li class="nav-item">
+                    <a asp-action="ProductColor" asp-controller="Product" class="nav-link menu-link"> <i class="ti ti-folders"></i> <span data-key="t-file-manager">Product Color</span> </a>
+                </li>
+
+                <li class="nav-item">
+                    <a asp-action="ProductMaterial" asp-controller="Product" class="nav-link menu-link"> <i class="ti ti-list"></i> <span data-key="t-to-do">Product Material</span> </a>
+                </li>
+
+                @*<li class="nav-item">
+                    <a href="javascript:void()" class="nav-link menu-link"> <i class="ti ti-address-book"></i> <span data-key="t-contacts">Images</span> </a>
+                </li> *@
+
+                <li class="nav-item">
+                    <a asp-action="ProductCategory" asp-controller="Product" class="nav-link menu-link"> <i class="ti ti-subtask"></i> <span data-key="t-kanaban-board">Product Category</span> </a>
+                </li>
+
+                <li class="nav-item">
+                    <a asp-action="GetAllProduct" asp-controller="Product" class="nav-link menu-link"> <i class="ti ti-subtask"></i> <span data-key="t-kanaban-board">Base Product</span> </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#sidebarInvoices" class="nav-link menu-link collapsed" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarInvoices">
+                        <i class="ti ti-file-invoice"></i> <span data-key="t-invoices">Invoices</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarInvoices">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="apps-invoices-list.html" class="nav-link" data-key="t-list-view">List View</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="apps-invoices-overview.html" class="nav-link" data-key="t-overview">Overview</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="apps-invoices-create.html" class="nav-link" data-key="t-create-invoice">Create Invoice</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="menu-title"><i class="ti ti-dots"></i> <span data-key="t-pages">Pages</span></li>
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link collapsed" href="#sidebarAuth" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuth">
+                        <i class="ti ti-user-circle"></i> <span data-key="t-authentication">Authentication</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarAuth">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a asp-action="Login" asp-controller="Security" class="nav-link" role="button" data-key="t-signin">Login </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-action="Register" asp-controller="Security" class="nav-link" role="button" data-key="t-signup">Register </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-action="Logout" asp-controller="Security" class="nav-link" role="button" data-key="t-signup">Logout </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="auth-pass-reset.html" class="nav-link" role="button" data-key="t-password-reset">
+                                    Password Reset
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="auth-pass-change.html" class="nav-link" role="button" data-key="t-password-create">
+                                    Password Create
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="auth-lockscreen.html" class="nav-link" role="button" data-key="t-lock-screen">
+                                    Lock Screen
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="auth-logout.html" class="nav-link" role="button" data-key="t-logout"> Logout </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="auth-success-msg.html" class="nav-link" role="button" data-key="t-success-message"> Success Message </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="auth-twostep.html" class="nav-link" role="button" data-key="t-two-step-verification"> Two Step Verification </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#sidebarErrors" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarErrors" data-key="t-errors"> Errors </a>
+                                <div class="collapse menu-dropdown" id="sidebarErrors">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="auth-404.html" class="nav-link" data-key="t-404-error"> 404 Error </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="auth-500.html" class="nav-link" data-key="t-500"> 500 </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="auth-offline.html" class="nav-link" data-key="t-offline-page"> Offline Page </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+
+        <!-- Sidebar -->
+
+    </div>
+
+    <div class="sidebar-background"></div>
+</div>
+<!-- Left Sidebar End -->

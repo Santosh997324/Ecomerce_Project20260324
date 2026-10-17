@@ -1,0 +1,166 @@
+﻿@model AdminPanel.Models.MasterModel
+@{
+    ViewData["Title"] = "Status";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int i=1;
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">Welcome to Banner </h4>
+
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Status</a></li>
+                            <li class="breadcrumb-item active">Form Status</li>
+                        </ol>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-lg-12">
+                @if(Model.StatusObj == null)
+                {
+                                  <div class="card">
+                    <div class="card-header align-items-center d-flex">
+                        <h4 class="card-title mb-0 flex-grow-1">Banner Form</h4>
+                    </div><!-- end card header -->
+                    <form asp-action="SaveStatus" asp-controller="Home"
+                          method="post" enctype="multipart/form-data">
+
+                        <div class="card-body">
+                            <div class="row">
+
+                                <div class="col-lg-12 mb-3">
+                                    <label>Status Name <span class="text-danger">*</span></label>
+                                    <input type="text" asp-for="StatusObj.Status_Name" class="form-control" placeholder="Status Name" />
+                                </div>
+                                
+                                <div class="col-lg-12">
+                                    <button type="submit"
+                                            class="btn btn-primary">
+                                        Submit
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </form>
+                    </div>
+
+                }
+                else
+                {
+                    <div class="card">
+                    <div class="card-header align-items-center d-flex">
+                        <h4 class="card-title mb-0 flex-grow-1">Status Form</h4>
+                    </div><!-- end card header -->
+                    <form asp-action="UpdateStatus" asp-controller="Home"
+                          method="post" enctype="multipart/form-data">
+
+                        <div class="card-body">
+                            <div class="row">
+
+                                <div class="col-lg-12 mb-3">
+                                    <label>Heading <span class="text-danger">*</span></label>
+                                    <input type="text" asp-for="StatusObj.Status_Name" class="form-control" placeholder="Status Name" />
+                                </div>
+
+                                <input type="hidden" asp-for="StatusObj.Status_Id"/>                              
+                                <div class="col-lg-12">
+                                    <button type="submit"
+                                            class="btn btn-primary">
+                                        Update
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+
+                }
+            </div> <!-- end col -->
+        </div>
+
+
+
+        @if (Model.StatusList != null && Model.StatusList.Count > 0)
+        {
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Status List</h5>
+                        </div>
+                        <div class="card-body">
+                            <table id="model-datatables" class="table table-bordered nowrap table-striped align-middle" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Sr No.</th>
+                                        <th>Status Name</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+
+                                    @foreach (var items in Model.StatusList)
+                                    {
+                                        <tr>
+                                            <td>@(i++)</td>
+                                            <td>@items.Status_Name</td>
+                                            <td>
+                                                <div class="d-flex gap-2">
+                                                    <!-- EDIT BUTTON -->
+                                                    <a asp-controller="Home"
+                                                       asp-action="Status"
+                                                       asp-route-Status_Id="@items.Status_Id"
+                                                       class="btn btn-sm btn-outline-primary rounded-pill px-3">
+                                                        <i class="ri-pencil-fill me-1"></i>
+                                                        Edit
+                                                    </a>
+
+                                                    <!-- DELETE BUTTON -->
+                                                    <a asp-controller="Home" asp-action="DeleteStatus" asp-route-Status_Id="@items.Status_Id"
+                                                       class="btn btn-sm btn-outline-danger rounded-pill px-3">
+                                                        <i class="ri-delete-bin-fill me-1"></i>
+                                                        Delete
+                                                    </a>
+
+                                                </div>
+                                            </td>
+
+                                        </tr>
+                                    }
+
+
+
+
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <!--end row-->
+        }
+
+
+
+    </div> <!-- container-fluid -->
+</div>
+

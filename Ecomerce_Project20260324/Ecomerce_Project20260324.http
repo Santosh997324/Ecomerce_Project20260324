@@ -1,0 +1,6 @@
+@Ecomerce_Project20260324_HostAddress = https://localhost:5225
+
+GET {{Ecomerce_Project20260324_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

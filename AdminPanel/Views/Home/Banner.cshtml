@@ -1,0 +1,182 @@
+﻿@model AdminPanel.Models.MasterModel;
+@{
+    ViewData["Title"] = "Banner";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int i = 1;
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">Welcome to Banner </h4>
+
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Banner</a></li>
+                            <li class="breadcrumb-item active">Form Select</li>
+                        </ol>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-lg-12">
+                @if(Model.BannerObj == null)
+                {
+                                  <div class="card">
+                    <div class="card-header align-items-center d-flex">
+                        <h4 class="card-title mb-0 flex-grow-1">Banner Form</h4>
+                    </div><!-- end card header -->
+                    <form asp-action="AddBanner" asp-controller="Home"
+                          method="post" enctype="multipart/form-data">
+
+                        <div class="card-body">
+                            <div class="row">
+
+                                <div class="col-lg-6 mb-3">
+                                    <label>Heading <span class="text-danger">*</span></label>
+                                    <input type="text" asp-for="BannerObj.Heading" class="form-control" placeholder="Heading" />
+                                </div>
+
+                                <div class="col-lg-6 mb-3">
+                                    <label>Images <span class="text-danger">*</span></label>
+                                    <input type="file" asp-for="ImagePath" class="form-control" />
+                                </div>
+
+
+                                <div class="col-lg-12 mb-3">
+                                    <label>Description <span class="text-danger">*</span></label>
+                                    <textarea asp-for="BannerObj.Description" class="form-control" rows="3" placeholder="Banner Description Here"></textarea>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <button type="submit"
+                                            class="btn btn-primary">
+                                        Submit
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </form>
+                    </div>
+
+                }
+                else
+                {
+                    <div class="card">
+                    <div class="card-header align-items-center d-flex">
+                        <h4 class="card-title mb-0 flex-grow-1">Banner Form</h4>
+                    </div><!-- end card header -->
+                    <form asp-action="UpdateBanner" asp-controller="Home"
+                          method="post" enctype="multipart/form-data">
+
+                        <div class="card-body">
+                            <div class="row">
+
+                                <div class="col-lg-6 mb-3">
+                                    <label>Heading <span class="text-danger">*</span></label>
+                                    <input type="text" asp-for="BannerObj.Heading" class="form-control" placeholder="Heading" />
+                                </div>
+
+                                <div class="col-lg-6 mb-3">
+                                    <label>Images <span class="text-danger">*</span></label>
+                                    <input type="file" asp-for="ImagePath" class="form-control" />
+                                </div>
+
+
+                                <div class="col-lg-12 mb-3">
+                                    <label>Description <span class="text-danger">*</span></label>
+                                    <textarea asp-for="BannerObj.Description" class="form-control" rows="3" placeholder="Banner Description Here"></textarea>
+                                </div>
+
+                                @Html.HiddenFor(m=>m.BannerObj.Id)
+                                @Html.HiddenFor(m=>m.BannerObj.ImagePath)
+                                <div class="col-lg-12">
+                                    <button type="submit"
+                                            class="btn btn-primary">
+                                        Update
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+
+                }
+            </div> <!-- end col -->
+        </div>
+
+
+
+        @if (Model.BannerList != null && Model.BannerList.Count > 0)
+        {
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Banner List</h5>
+                        </div>
+                        <div class="card-body">
+                            <table id="model-datatables" class="table table-bordered nowrap table-striped align-middle" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Sr No.</th>
+                                        <th>Heading</th>
+                                        <th>Description</th>
+                                        <th>Images</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var items in Model.BannerList)
+                                    {
+                                        <tr>
+                                            <td>@(i++)</td>
+                                            <td>@items.Heading</td>
+                                            <td>@items.Description</td>
+                                            <td><img src="@items.ImagePath" width="100" /></td>
+                                            <td>
+                                                <div class="d-flex gap-2">
+                                                    <!-- EDIT BUTTON -->
+                                                    <a asp-controller="Home"
+                                                       asp-action="Banner"
+                                                       asp-route-Banner_Id="@items.Id"
+                                                       class="btn btn-sm btn-outline-primary rounded-pill px-3">
+                                                        <i class="ri-pencil-fill me-1"></i>
+                                                        Edit
+                                                    </a>
+                                                    <!-- DELETE BUTTON -->
+                                                    <a asp-controller="Home" asp-action="DeleteBanner" asp-route-Banner_Id="@items.Id"
+                                                       class="btn btn-sm btn-outline-danger rounded-pill px-3">
+                                                        <i class="ri-delete-bin-fill me-1"></i>
+                                                        Delete
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <!--end row-->
+        }
+
+
+
+    </div> <!-- container-fluid -->
+</div>
+<!-- End Page-content -->

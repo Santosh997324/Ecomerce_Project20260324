@@ -1,0 +1,343 @@
+﻿@model AdminPanel.Models.MasterModel
+@{
+    ViewData["Title"] = "GetAllProduct";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int i = 0;
+
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<style>
+    #searchBox {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .suggestions {
+            position: absolute;
+            width: 100%;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-top: none;
+            display: none;
+            max-height: 250px;
+            overflow-y: auto;
+            box-shadow: 0 2px 8px rgba(0,0,0,.2);
+            z-index: 100;
+        }
+
+        .suggestion-item {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .suggestion-item:hover {
+            background: #f1f1f1;
+        }
+</style>
+
+<div class="page-content">
+    <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">Welcome to Base Product</h4>
+
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Base Product</a></li>
+                            <li class="breadcrumb-item active">Form Select</li>
+                        </ol>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-lg-12">
+                @if(Model.BaseProductVM_Obj == null)
+                {
+                     <div class="card">
+                    <div class="card-header align-items-center d-flex">
+                        <h4 class="card-title mb-0 flex-grow-1">Materil Form</h4>
+                    </div><!-- end card header -->
+                    <form asp-action="AddBaseProduct" asp-controller="Product"
+                          method="post" enctype="multipart/form-data">
+
+                        <div class="card-body">
+                            <div class="row">
+
+                                <div class="col-lg-12 mb-3">
+                                    <label>Base Prioduct Name <span class="text-danger">*</span></label>
+                                    <input type="text" asp-for="BaseProductVM_Obj.Name" class="form-control" placeholder="Name" required/>
+                                </div>
+                             
+
+                                
+                                <div class="col-lg-6 mb-3">
+                                    <label>Material Name<span class="text-danger">*</span></label>
+                                    <select class="form-select" asp-for="BaseProductVM_Obj.MaterialId"> <option value="">--Select Material Name---</option>
+                                            @foreach (var items in Model.Mateial_List)
+                                            {
+                                             <option value="@items.Id">@items.Name</option>  
+                                            }
+                                    </select>
+                                </div>
+
+                                    <div class="col-lg-6 mb-3">
+                                    <label>Base Product Category<span class="text-danger">*</span></label>
+                                    <select class="form-select" asp-for="BaseProductVM_Obj.MainCategoryId" required><option value="">--Select Category Name-- </option>
+                                            @foreach (var items in Model.ProductCategoryVM_List)
+                                            {
+                                             <option value="@items.Id">@items.Name</option>   
+                                            }
+                                    </select>
+
+                                </div>
+
+
+
+                                 <div class="col-lg-4 mb-3">
+                                    <label>Base Price<span class="text-danger">*</span></label>
+                                    <input type="number" asp-for="BaseProductVM_Obj.Price" class="form-control" placeholder="Price" required/>
+                                </div>
+
+                                 <div class="col-lg-4 mb-3">
+                                    <label>Base Discount<span class="text-danger">*</span></label>
+                                    <input type="number" asp-for="BaseProductVM_Obj.Discount" class="form-control" placeholder="Discount" required/>
+                                </div>
+
+                                 <div class="col-lg-4 mb-3">
+                                    <label>Base TotalPrice<span class="text-danger">*</span></label>
+                                    <input type="number" asp-for="BaseProductVM_Obj.TotalPrice" class="form-control" placeholder="TotalPrice" required/>
+                                </div>
+
+                                <div class="col-lg-12 mb-3">
+                                    <label>Base Description<span class="text-danger">*</span></label>
+                                    <textarea type="text" asp-for="BaseProductVM_Obj.Description" class="form-control" placeholder="Description" required></textarea>
+                                </div>
+                               
+                                <div class="col-lg-6">
+                                    <button type="submit"
+                                            class="btn btn-primary">
+                                        Submit
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </form>
+                    </div>
+
+                }
+                else
+                {
+                     <div class="card">
+                    <div class="card-header align-items-center d-flex">
+                        <h4 class="card-title mb-0 flex-grow-1">Materil Form</h4>
+                    </div><!-- end card header -->
+                    <form asp-action="UpdateBaseProduct" asp-controller="Product"
+                          method="post" enctype="multipart/form-data">
+
+                        <div class="card-body">
+                            <div class="row">
+
+                                <div class="col-lg-12 mb-3">
+                                    <label>Base Prioduct Name <span class="text-danger">*</span></label>
+                                    <input type="text" asp-for="BaseProductVM_Obj.Name" class="form-control" placeholder="Name" required/>
+                                </div>
+                             
+
+                                
+                                <div class="col-lg-6 mb-3">
+                                    <label>Material Name<span class="text-danger">*</span></label>
+                                    <select class="form-select" asp-for="BaseProductVM_Obj.MaterialId"> <option value="">--Select Material Name---</option>
+                                            @foreach (var items in Model.Mateial_List)
+                                            {
+                                             <option value="@items.Id">@items.Name</option>  
+                                            }
+                                    </select>
+                                </div>
+
+                                    <div class="col-lg-6 mb-3">
+                                    <label>Base Product Category<span class="text-danger">*</span></label>
+                                    <select class="form-select" asp-for="BaseProductVM_Obj.MainCategoryId" required><option value="">--Select Category Name-- </option>
+                                            @foreach (var items in Model.ProductCategoryVM_List)
+                                            {
+                                             <option value="@items.Id">@items.Name</option>   
+                                            }
+                                    </select>
+
+                                </div>
+
+
+
+                                 <div class="col-lg-4 mb-3">
+                                    <label>Base Price<span class="text-danger">*</span></label>
+                                    <input type="number" asp-for="BaseProductVM_Obj.Price" class="form-control" placeholder="Price" required/>
+                                </div>
+
+                                 <div class="col-lg-4 mb-3">
+                                    <label>Base Discount<span class="text-danger">*</span></label>
+                                    <input type="number" asp-for="BaseProductVM_Obj.Discount" class="form-control" placeholder="Discount" required/>
+                                </div>
+
+                                 <div class="col-lg-4 mb-3">
+                                    <label>Base TotalPrice<span class="text-danger">*</span></label>
+                                    <input type="number" asp-for="BaseProductVM_Obj.TotalPrice" class="form-control" placeholder="TotalPrice" required/>
+                                </div>
+
+                                <div class="col-lg-12 mb-3">
+                                    <label>Base Description<span class="text-danger">*</span></label>
+                                    <textarea type="text" asp-for="BaseProductVM_Obj.Description" class="form-control" placeholder="Description" required></textarea>
+                                </div>
+                               <input type="hidden" asp-for="BaseProductVM_Obj.Id"/>
+                               <input type="hidden"  asp-for="BaseProductVM_Obj.MainCategoryId"/>
+                               <input type="hidden"  asp-for="BaseProductVM_Obj.MaterialId"/>
+                                <div class="col-lg-6">
+                                    <button type="submit"
+                                            class="btn btn-primary">
+                                        Submit
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </form>
+                    </div>
+
+                }
+            </div> <!-- end col -->
+        </div>
+
+        @if (Model.BaseProductVM_Dtos_List != null && Model.BaseProductVM_Dtos_List.Count > 0)
+        {
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-lg-8">
+                                <h5 class="card-title mb-0">Material List</h5>
+                                </div>
+                                    <div class="col-lg-3">
+                                        <input type="text"  placeholder="Search here" class="form-control" id="searchBox" />
+
+                                         <div class="suggestions" id="suggestions"></div>    
+                                     </div>
+                                    <div class="col-lg-1">
+                                        <button class="btn btn-primary" type="button" id="SearchButton">Search</button>
+                                    </div>
+
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <table id="model-datatables" class="table table-bordered nowrap table-striped align-middle" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Sr No.</th>
+                                        <th>Name</th>
+                                        <th>Category</th>
+                                        <th>Material</th>
+                                        <th>Price</th>
+                                        <th>Discount</th>
+                                        <th>Total Price</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="productTableBody">
+                                    @foreach (var items in Model.BaseProductVM_Dtos_List)
+                                    {
+                                        <tr>
+                                            <td>@(i++)</td>
+                                            <td>@items.Name</td>  
+                                            <td>@items.MainCategory.name</td>
+                                            <td>@items.Material.name</td>
+                                            <td>
+                                            <a type="button" onclick="GetPrice(@items.Id)" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">@items.Price</a>
+                                                
+                                               </td>
+                                            <td>
+                                                <a type="button" onclick="GetDiscount(@items.Id)" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModalA">@items.Discount</a> 
+                                                
+                                                @items.Discount</td>
+                                            <td>@items.TotalPrice</td>
+                                            <td>
+                                                <div class="d-flex gap-2">
+                                                    <!-- EDIT BUTTON -->
+                                                    <a asp-controller="Product"
+                                                       asp-action="GetAllProduct"
+                                                       asp-route-Base_Product_Id="@items.Id"
+                                                       class="btn btn-sm btn-outline-primary rounded-pill px-3">
+                                                        <i class="ri-pencil-fill me-1"></i>
+                                                        Edit
+                                                    </a>
+                                                    <!-- DELETE BUTTON -->
+                                                    <a asp-controller="Product" asp-action="DeleteProductMaterial" asp-route-Id="@items.Id"
+                                                       class="btn btn-sm btn-outline-danger rounded-pill px-3">
+                                                        <i class="ri-delete-bin-fill me-1"></i>
+                                                        Delete
+                                                    </a>
+
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                } 
+            </div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ 
+    <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Update Price</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div id="ShowModel">
+
+</div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="exampleModalA" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ 
+    <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabelA">Update Discount</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div id="ShowModelA">
+
+</div>
+
+    </div>
+  </div>
+</div>
+
+@* endHere
+ *@
+
+</div>
+<script src="~/custome_js/getbaseproduct.js"></script>

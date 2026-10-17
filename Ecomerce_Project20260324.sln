@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36121.58
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecomerce_Project20260324", "Ecomerce_Project20260324\Ecomerce_Project20260324.csproj", "{0C326166-BFD5-46E1-BE96-8206CD78D549}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminPanel", "AdminPanel\AdminPanel.csproj", "{FEAB0DB6-0CEC-4B43-A99E-9128F09CC601}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0C326166-BFD5-46E1-BE96-8206CD78D549}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C326166-BFD5-46E1-BE96-8206CD78D549}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C326166-BFD5-46E1-BE96-8206CD78D549}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C326166-BFD5-46E1-BE96-8206CD78D549}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEAB0DB6-0CEC-4B43-A99E-9128F09CC601}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEAB0DB6-0CEC-4B43-A99E-9128F09CC601}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEAB0DB6-0CEC-4B43-A99E-9128F09CC601}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEAB0DB6-0CEC-4B43-A99E-9128F09CC601}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7D90A560-CF5D-498D-A959-23E815719B60}
+	EndGlobalSection
+EndGlobal
