@@ -420,6 +420,9 @@ namespace AdminPanel.Controllers
         {
             return View();
         }
+
+
+
         public IActionResult ProductMaterial()
         {
             return View();
